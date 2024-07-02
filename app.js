@@ -6,6 +6,8 @@ const port = process.env.PORT;
 const router = require("./routers/server");
 const app = express();
 
+app.use(express.json());
+
 app.get("/",(req,res)=>{
   res.send("welcome")
 })
