@@ -5,10 +5,12 @@ const geoip = require("geoip-lite");
 const axios = require("axios");
 const api_key = process.env.OPENWEATHER_APIKEY;
 
+app.use(express.json());
+
 router.get("/hello", async (req, res) => {
   try {
     const name = req.query.visitor_name;
-    const ip = req.ip;
+    const ip = req.headers["x-forwarded-for"]
     const geo = geoip.lookup(ip);
     console.log(geo);
     if (!geo.city) {
