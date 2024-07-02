@@ -8,13 +8,14 @@ const api_key = process.env.OPENWEATHER_APIKEY;
 router.get("/hello", async (req, res) => {
   try {
     const name = req.query.visitor_name;
-    const ip = "46.219.52.63";
-    // const ip = req.ip;
+    const ip = req.ip;
     const geo = geoip.lookup(ip);
-    console.log(geo)
-    if(!geo.city){
-      res.status(404).send({ error: "couldn't find the city for this ip address" });
-        }
+    console.log(geo);
+    if (!geo.city) {
+      res
+        .status(404)
+        .send({ error: "couldn't find the city for this ip address" });
+    }
 
     const weatherRes = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather`,
