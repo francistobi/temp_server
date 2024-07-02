@@ -12,7 +12,7 @@ router.get("/hello", async (req, res) => {
   try {
    const name = req.query.visitor_name;
   //  const ip = req.clientIp;
-   const ip = "110.125.193.161";
+   const ip = "201.137.186.189";
     console.log(ip);
     const geo = geoip.lookup(ip);
     console.log(geo);
