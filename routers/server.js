@@ -3,14 +3,16 @@ const express = require("express");
 const router = express.Router();
 const geoip = require("geoip-lite");
 const axios = require("axios");
-const api_key = process.env.OPENWEATHER_APIKEY;
 
+
+const api_key = process.env.OPENWEATHER_APIKEY;
 
 
 router.get("/hello", async (req, res) => {
   try {
-    const name = req.query.visitor_name;
-    const ip = req.headers["x-forwarded-for"]
+   const name = req.query.visitor_name;
+   const ip = req.clientIp;
+    console.log(ip);
     const geo = geoip.lookup(ip);
     console.log(geo);
     if (!geo.city) {
@@ -36,8 +38,6 @@ router.get("/hello", async (req, res) => {
       location: geo.city,
       greeting: `Hello, ${name}!, the temperature is ${temp} degrees Celcius in ${geo.city}`,
     });
-
-    console.log(temp);
   } catch (error) {
     res.status(500).send({ error: "unable to fetch weather data" });
   }
