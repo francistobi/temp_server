@@ -11,15 +11,15 @@ const api_key = process.env.OPENWEATHER_APIKEY;
 router.get("/hello", async (req, res) => {
   try {
    const name = req.query.visitor_name;
-  //  const ip = req.clientIp;
-   const ip = "201.137.186.189";
+   const ip = req.clientIp;
+  //  const ip = "10.224.243.239";
     console.log(ip);
     const geo = geoip.lookup(ip);
     console.log(geo);
     if (!geo.city) {
       res
         .status(404)
-        .send({ error: "couldn't find the city for this ip address" });
+        .send({ error: "couldn't find the city for this ip address" })
     }
 
     const weatherRes = await axios.get(
